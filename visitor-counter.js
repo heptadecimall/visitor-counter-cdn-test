@@ -1,6 +1,6 @@
 (function () {
-    console.log("Visitor counter running...");
-    // auto inject Styles ---
+    console.log("Visitor Counter Script Loaded"); 
+
     const style = document.createElement('style');
     style.innerHTML = `
         .v-counter-wrap { display: flex; gap: 4px; margin: 8px 0; align-items: center; justify-content: center; }
@@ -13,48 +13,43 @@
     `;
     document.head.appendChild(style);
 
-    // configs
-    const API_URL = 'https://saasmy-755529173.development.catalystserverless.com/server/wbt-advanced_io/ping-visitor';
+    const API_URL = 'YOUR_CATALYST_URL_HERE';
     const containerId = 'visitor-counter-container';
 
     async function initCounter() {
+        console.log("initCounter called"); 
         const container = document.getElementById(containerId);
-        if (!container) return;
+        if (!container) {
+            console.error("Target container not found!");
+            return;
+        }
 
         try {
-            // 'credentials: include' is CRITICAL to send/receive the 24h cookie/token
             const response = await fetch(`${API_URL}?domain=${window.location.hostname}`, {
                 credentials: 'include'
             });
             const data = await response.json();
-            render(12345);
+            render(data.count);
         } catch (err) {
-            console.error("Counter Error:", err);
+            console.error("Fetch Error:", err);
+            render(0); 
         }
     }
 
     function render(count) {
-    console.log("Render function called with:", count);
-    const container = document.getElementById(containerId);
-    
-    if (!container) {
-        console.error("CRITICAL: Container 'visitor-counter-container' NOT FOUND!");
-        return;
+        console.log("Rendering count:", count); 
+        const container = document.getElementById(containerId);
+        const digits = (count || 0).toString().padStart(8, '0').split('');
+
+        let html = '<div class="v-counter-wrap">';
+        digits.forEach(digit => {
+            html += `<div class="v-digit-box"><span class="v-digit-text">${digit}</span></div>`;
+        });
+        html += '</div>';
+
+        container.innerHTML = html;
     }
 
-    const digits = (count || 0).toString().padStart(8, '0').split('');
-    let html = '<div class="v-counter-wrap">';
-    digits.forEach(digit => {
-        html += `<div class="v-digit-box"><span class="v-digit-text">${digit}</span></div>`;
-    });
-    html += '</div>';
-
-    container.innerHTML = html;
-    console.log("HTML injected into:", container);
-}
-
-
-    // The logic to ensure it actually runs
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
         initCounter();
     } else {
