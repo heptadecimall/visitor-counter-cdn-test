@@ -13,7 +13,7 @@
     `;
     document.head.appendChild(style);
 
-    const API_URL = 'YOUR_CATALYST_URL_HERE';
+    const API_URL = 'https://saasmy-755529173.development.catalystserverless.com/server/wbt-advanced_io/ping-visitor';
     const containerId = 'visitor-counter-container';
 
     async function initCounter() {
