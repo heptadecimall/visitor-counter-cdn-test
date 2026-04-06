@@ -53,23 +53,11 @@
     console.log("HTML injected into:", container);
 }
 
-    // function render(count) {
-    //     const container = document.getElementById(containerId);
-    //     const digits = count.toString().padStart(8, '0').split('');
 
-    //     let html = '<div class="v-counter-wrap">';
-    //     digits.forEach(digit => {
-    //         html += `<div class="v-digit-box"><span class="v-digit-text">${digit}</span></div>`;
-    //     });
-    //     html += '</div>';
-
-    //     container.innerHTML = html;
-    // }
-
-    // // run on DOM ready
-    // if (document.readyState === 'loading') {
-    //     document.addEventListener('DOMContentLoaded', initCounter);
-    // } else {
-    //     initCounter();
-    // }
+    // The logic to ensure it actually runs
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        initCounter();
+    } else {
+        document.addEventListener('DOMContentLoaded', initCounter);
+    }
 })();
