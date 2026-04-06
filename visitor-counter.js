@@ -34,22 +34,42 @@
     }
 
     function render(count) {
-        const container = document.getElementById(containerId);
-        const digits = count.toString().padStart(8, '0').split('');
-
-        let html = '<div class="v-counter-wrap">';
-        digits.forEach(digit => {
-            html += `<div class="v-digit-box"><span class="v-digit-text">${digit}</span></div>`;
-        });
-        html += '</div>';
-
-        container.innerHTML = html;
+    console.log("Render function called with:", count);
+    const container = document.getElementById(containerId);
+    
+    if (!container) {
+        console.error("CRITICAL: Container 'visitor-counter-container' NOT FOUND!");
+        return;
     }
 
-    // run on DOM ready
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initCounter);
-    } else {
-        initCounter();
-    }
+    const digits = (count || 0).toString().padStart(8, '0').split('');
+    let html = '<div class="v-counter-wrap">';
+    digits.forEach(digit => {
+        html += `<div class="v-digit-box"><span class="v-digit-text">${digit}</span></div>`;
+    });
+    html += '</div>';
+
+    container.innerHTML = html;
+    console.log("HTML injected into:", container);
+}
+
+    // function render(count) {
+    //     const container = document.getElementById(containerId);
+    //     const digits = count.toString().padStart(8, '0').split('');
+
+    //     let html = '<div class="v-counter-wrap">';
+    //     digits.forEach(digit => {
+    //         html += `<div class="v-digit-box"><span class="v-digit-text">${digit}</span></div>`;
+    //     });
+    //     html += '</div>';
+
+    //     container.innerHTML = html;
+    // }
+
+    // // run on DOM ready
+    // if (document.readyState === 'loading') {
+    //     document.addEventListener('DOMContentLoaded', initCounter);
+    // } else {
+    //     initCounter();
+    // }
 })();
