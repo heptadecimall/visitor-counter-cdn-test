@@ -25,7 +25,7 @@
         }
 
         try {
-            const response = await fetch(`${API_URL}?domain=${window.location.hostname}`, {
+            const response = await fetch(`${API_URL}`, {
                 credentials: 'include'
             });
             const data = await response.json();
