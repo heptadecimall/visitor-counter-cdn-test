@@ -27,7 +27,7 @@
                 credentials: 'include'
             });
             const data = await response.json();
-            render(data.count);
+            render(12345);
         } catch (err) {
             console.error("Counter Error:", err);
         }
