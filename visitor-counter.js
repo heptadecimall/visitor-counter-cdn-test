@@ -50,9 +50,20 @@
         container.innerHTML = html;
     }
 
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        initCounter();
-    } else {
-        document.addEventListener('DOMContentLoaded', initCounter);
+// --- Optimized "Wait for Element" Logic ---
+    function startWithRetry() {
+        const container = document.getElementById(containerId);
+        
+        if (container) {
+            console.log("Container found! Initializing...");
+            initCounter();
+        } else {
+            // If not found, wait 50ms and try again
+            console.log("Container not found yet, retrying...");
+            setTimeout(startWithRetry, 50);
+        }
     }
+
+    // Start looking for the container immediately
+    startWithRetry();
 })();
