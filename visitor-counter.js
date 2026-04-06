@@ -1,4 +1,5 @@
 (function () {
+    console.log("Visitor counter running...");
     // auto inject Styles ---
     const style = document.createElement('style');
     style.innerHTML = `
